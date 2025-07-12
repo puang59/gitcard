@@ -91,8 +91,7 @@ export function drawGitHubCard(
     const lines = [];
 
     let currentLine = "";
-    for (let i = 0; i < words.length; i++) {
-      const word = words[i];
+    for (const word of words) {
       const testLine = currentLine + word + " ";
       const { width: testWidth } = ctx.measureText(testLine);
       if (testWidth > maxWidth && currentLine) {
