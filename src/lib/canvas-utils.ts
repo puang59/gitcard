@@ -84,12 +84,30 @@ export function drawGitHubCard(
   if (user.bio) {
     ctx.fillStyle = "#e6edf3";
     ctx.font = `${Math.max(10, 16 * scale)}px system-ui, -apple-system, sans-serif`;
-    const maxChars = scale < 0.6 ? 40 : 65;
-    const bio =
-      user.bio.length > maxChars
-        ? user.bio.substring(0, maxChars) + "..."
-        : user.bio;
-    ctx.fillText(bio, contentStartX, 110 * scale);
+
+    const maxWidth = 400 * scale; // or however wide your content box is
+    const lineHeight = 20 * scale;
+    const words = user.bio.split(" ");
+    const lines = [];
+
+    let currentLine = "";
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const testLine = currentLine + word + " ";
+      const { width: testWidth } = ctx.measureText(testLine);
+      if (testWidth > maxWidth && currentLine) {
+        lines.push(currentLine);
+        currentLine = word + " ";
+      } else {
+        currentLine = testLine;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+
+    const startY = 110 * scale;
+    lines.forEach((line, i) => {
+      ctx.fillText(line.trim(), contentStartX, startY + i * lineHeight);
+    });
   }
 
   // Company and Location
