@@ -144,7 +144,7 @@ export function drawGitHubCard(
   ctx.font = "14px system-ui, -apple-system, sans-serif";
   ctx.fillText(`Joined ${joinDate}`, 30, statsY + 90);
 
-  const brandingText = `gitcard.com | @${user.login}`;
+  const brandingText = `gitcard.puang.in`;
   ctx.fillStyle = "#6e7681";
   ctx.font = "12px system-ui, -apple-system, sans-serif";
 
